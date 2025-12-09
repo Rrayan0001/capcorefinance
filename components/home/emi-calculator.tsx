@@ -1,17 +1,31 @@
 "use client"
 
-import { useState, useMemo } from "react"
-import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts"
+import type React from "react"
+
+import { useState, useMemo, useRef, useEffect } from "react"
+import { motion } from "framer-motion"
+import { gsap } from "gsap"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
+import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts"
+import { Calculator } from "lucide-react"
+
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger)
+}
 
 export default function EMICalculator() {
   const [loanAmount, setLoanAmount] = useState(259000)
   const [interestRate, setInterestRate] = useState(11)
-  const [tenure, setTenure] = useState(5)
+  const [tenureMonths, setTenureMonths] = useState(60)
+  const sectionRef = useRef<HTMLElement>(null)
+
+  const tenureYears = Math.floor(tenureMonths / 12)
+  const tenureRemainingMonths = tenureMonths % 12
 
   const calculations = useMemo(() => {
     const principal = loanAmount
     const monthlyRate = interestRate / 12 / 100
-    const months = tenure * 12
+    const months = tenureMonths
 
     let monthlyEMI = 0
     if (monthlyRate > 0) {
@@ -30,31 +44,109 @@ export default function EMICalculator() {
       totalAmount: Math.round(totalAmount),
       principal: Math.round(principal),
     }
-  }, [loanAmount, interestRate, tenure])
+  }, [loanAmount, interestRate, tenureMonths])
 
   const chartData = [
-    { name: "Principal", value: calculations.principal, fill: "#E5E7EB" },
-    { name: "Interest", value: calculations.totalInterest, fill: "#6366F1" },
+    { name: "Principal", value: calculations.principal, color: "#002D62" }, // Navy primary
+    { name: "Interest", value: calculations.totalInterest, color: "#D4A853" }, // Gold accent
   ]
 
-  const formatCurrency = (value) => `₹${value.toLocaleString("en-IN")}`
+  const formatCurrency = (value: number) => `₹${value.toLocaleString("en-IN")}`
+
+  const handleLoanAmountInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.replace(/,/g, "")
+    const numValue = Number.parseInt(value) || 0
+    if (numValue >= 0 && numValue <= 10000000) {
+      setLoanAmount(numValue)
+    }
+  }
+
+  const handleInterestInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = Number.parseFloat(e.target.value) || 0
+    if (value >= 0 && value <= 25) {
+      setInterestRate(value)
+    }
+  }
+
+  const handleTenureYearsInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const years = Number.parseInt(e.target.value) || 0
+    if (years >= 0 && years <= 30) {
+      setTenureMonths(years * 12 + tenureRemainingMonths)
+    }
+  }
+
+  const handleTenureMonthsInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const months = Number.parseInt(e.target.value) || 0
+    if (months >= 0 && months < 12) {
+      setTenureMonths(tenureYears * 12 + months)
+    }
+  }
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        sectionRef.current,
+        { opacity: 0, y: 60 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 80%",
+            toggleActions: "play none none reverse",
+          },
+        },
+      )
+    }, sectionRef)
+
+    return () => ctx.revert()
+  }, [])
 
   return (
-    <section className="py-16 md:py-24 bg-gradient-to-b from-background to-card">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">EMI Calculator</h2>
-          <p className="text-lg text-muted-foreground">Calculate your monthly EMI instantly</p>
-        </div>
+    <section ref={sectionRef} className="py-20 md:py-32 bg-secondary/30 relative overflow-hidden">
+      <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -translate-y-1/2" />
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-accent/10 rounded-full blur-3xl translate-y-1/2" />
 
-        <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-14"
+        >
+          <span className="inline-flex items-center gap-2 text-primary font-semibold text-sm tracking-wider uppercase mb-4 bg-primary/10 px-4 py-2 rounded-full">
+            <Calculator size={18} />
+            Financial Tool
+          </span>
+          <h2 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight text-foreground">EMI Calculator</h2>
+          <p className="text-lg text-muted-foreground">
+            Calculate your monthly EMI instantly with our smart calculator
+          </p>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.2 }}
+          className="grid lg:grid-cols-2 gap-8 lg:gap-12"
+        >
           {/* Calculator Controls */}
-          <div className="space-y-8 bg-card p-8 rounded-lg border border-border">
+          <div className="space-y-8 bg-card p-8 lg:p-10 rounded-3xl border border-border shadow-xl">
             {/* Loan Amount */}
             <div>
-              <label className="block text-sm font-medium mb-4 text-foreground">
-                <span className="text-muted-foreground">Loan Amount</span>
-                <span className="text-accent ml-2 text-lg font-bold">{formatCurrency(loanAmount)}</span>
+              <label className="flex justify-between items-center mb-4">
+                <span className="text-sm font-medium text-foreground">Loan Amount</span>
+                <div className="flex items-center gap-1 bg-primary/10 px-4 py-2 rounded-lg border border-primary/20">
+                  <span className="text-primary font-medium">₹</span>
+                  <input
+                    type="text"
+                    value={loanAmount.toLocaleString("en-IN")}
+                    onChange={handleLoanAmountInput}
+                    className="w-28 bg-transparent text-primary font-bold text-lg text-right focus:outline-none"
+                  />
+                </div>
               </label>
               <input
                 type="range"
@@ -63,19 +155,28 @@ export default function EMICalculator() {
                 step="10000"
                 value={loanAmount}
                 onChange={(e) => setLoanAmount(Number(e.target.value))}
-                className="w-full h-2 bg-border rounded-lg appearance-none cursor-pointer accent-primary"
+                className="w-full h-2 bg-border rounded-full appearance-none cursor-pointer [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-primary [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:shadow-lg [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-primary-foreground"
               />
               <div className="flex justify-between text-xs text-muted-foreground mt-2">
-                <span>₹1L</span>
-                <span>₹1Cr</span>
+                <span>₹1 Lakh</span>
+                <span>₹1 Crore</span>
               </div>
             </div>
 
             {/* Interest Rate */}
             <div>
-              <label className="block text-sm font-medium mb-4 text-foreground">
-                <span className="text-muted-foreground">Rate of Interest (p.a)</span>
-                <span className="text-accent ml-2 text-lg font-bold">{interestRate.toFixed(1)}%</span>
+              <label className="flex justify-between items-center mb-4">
+                <span className="text-sm font-medium text-foreground">Rate of Interest (p.a)</span>
+                <div className="flex items-center gap-1 bg-primary/10 px-4 py-2 rounded-lg border border-primary/20">
+                  <input
+                    type="number"
+                    step="0.1"
+                    value={interestRate}
+                    onChange={handleInterestInput}
+                    className="w-16 bg-transparent text-primary font-bold text-lg text-right focus:outline-none"
+                  />
+                  <span className="text-primary font-medium">%</span>
+                </div>
               </label>
               <input
                 type="range"
@@ -84,7 +185,7 @@ export default function EMICalculator() {
                 step="0.1"
                 value={interestRate}
                 onChange={(e) => setInterestRate(Number(e.target.value))}
-                className="w-full h-2 bg-border rounded-lg appearance-none cursor-pointer accent-primary"
+                className="w-full h-2 bg-border rounded-full appearance-none cursor-pointer [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-primary [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:shadow-lg [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-primary-foreground"
               />
               <div className="flex justify-between text-xs text-muted-foreground mt-2">
                 <span>5%</span>
@@ -92,82 +193,123 @@ export default function EMICalculator() {
               </div>
             </div>
 
-            {/* Loan Tenure */}
+            {/* Loan Tenure - Years & Months */}
             <div>
-              <label className="block text-sm font-medium mb-4 text-foreground">
-                <span className="text-muted-foreground">Loan Tenure</span>
-                <span className="text-accent ml-2 text-lg font-bold">{tenure}Yr</span>
+              <label className="flex justify-between items-center mb-4">
+                <span className="text-sm font-medium text-foreground">Loan Tenure</span>
+                <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-1 bg-primary/10 px-3 py-2 rounded-lg border border-primary/20">
+                    <input
+                      type="number"
+                      min="0"
+                      max="30"
+                      value={tenureYears}
+                      onChange={handleTenureYearsInput}
+                      className="w-10 bg-transparent text-primary font-bold text-lg text-right focus:outline-none"
+                    />
+                    <span className="text-primary font-medium text-sm">Yr</span>
+                  </div>
+                  <div className="flex items-center gap-1 bg-primary/10 px-3 py-2 rounded-lg border border-primary/20">
+                    <input
+                      type="number"
+                      min="0"
+                      max="11"
+                      value={tenureRemainingMonths}
+                      onChange={handleTenureMonthsInput}
+                      className="w-10 bg-transparent text-primary font-bold text-lg text-right focus:outline-none"
+                    />
+                    <span className="text-primary font-medium text-sm">Mo</span>
+                  </div>
+                </div>
               </label>
               <input
                 type="range"
-                min="1"
-                max="30"
-                step="0.5"
-                value={tenure}
-                onChange={(e) => setTenure(Number(e.target.value))}
-                className="w-full h-2 bg-border rounded-lg appearance-none cursor-pointer accent-primary"
+                min="12"
+                max="360"
+                step="1"
+                value={tenureMonths}
+                onChange={(e) => setTenureMonths(Number(e.target.value))}
+                className="w-full h-2 bg-border rounded-full appearance-none cursor-pointer [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-primary [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:shadow-lg [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-primary-foreground"
               />
               <div className="flex justify-between text-xs text-muted-foreground mt-2">
-                <span>1 Yr</span>
-                <span>30 Yr</span>
+                <span>1 Year</span>
+                <span>30 Years</span>
               </div>
             </div>
 
-            {/* Results */}
-            <div className="space-y-3 pt-6 border-t border-border">
-              <div className="flex justify-between">
+            {/* Results - Updated styling */}
+            <div className="space-y-4 pt-6 border-t border-border">
+              <div className="flex justify-between items-center">
                 <span className="text-muted-foreground">Monthly EMI</span>
-                <span className="font-bold text-lg text-accent">{formatCurrency(calculations.monthlyEMI)}</span>
+                <motion.span
+                  key={calculations.monthlyEMI}
+                  initial={{ scale: 1.1 }}
+                  animate={{ scale: 1 }}
+                  className="font-bold text-2xl text-primary"
+                >
+                  {formatCurrency(calculations.monthlyEMI)}
+                </motion.span>
               </div>
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Principal Amount</span>
-                <span className="font-semibold">{formatCurrency(calculations.principal)}</span>
+                <span className="font-semibold text-foreground">{formatCurrency(calculations.principal)}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Total Interest</span>
-                <span className="font-semibold">{formatCurrency(calculations.totalInterest)}</span>
+                <span className="font-semibold text-accent">{formatCurrency(calculations.totalInterest)}</span>
               </div>
-              <div className="flex justify-between pt-3 border-t border-border">
-                <span className="font-semibold">Total Amount Payable</span>
-                <span className="font-bold text-lg">{formatCurrency(calculations.totalAmount)}</span>
+              <div className="flex justify-between pt-4 border-t border-border bg-primary/5 -mx-8 lg:-mx-10 px-8 lg:px-10 py-4 -mb-8 lg:-mb-10 rounded-b-3xl">
+                <span className="font-semibold text-foreground">Total Amount Payable</span>
+                <span className="font-bold text-xl text-primary">{formatCurrency(calculations.totalAmount)}</span>
               </div>
             </div>
           </div>
 
-          {/* Pie Chart */}
-          <div className="flex items-center justify-center bg-card p-8 rounded-lg border border-border">
-            <div className="w-full">
-              <ResponsiveContainer width="100%" height={300}>
-                <PieChart>
-                  <Pie
-                    data={chartData}
-                    cx="50%"
-                    cy="50%"
-                    innerRadius={80}
-                    outerRadius={120}
-                    paddingAngle={2}
-                    dataKey="value"
-                  >
-                    {chartData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={entry.fill} />
-                    ))}
-                  </Pie>
-                  <Tooltip formatter={(value) => formatCurrency(value)} />
-                </PieChart>
-              </ResponsiveContainer>
-              <div className="flex gap-6 justify-center mt-6">
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 rounded-full bg-gray-300"></div>
-                  <span className="text-sm text-muted-foreground">Principal</span>
+          {/* Pie Chart - Updated styling */}
+          <div className="flex flex-col items-center justify-center bg-card p-8 lg:p-10 rounded-3xl border border-border shadow-xl">
+            <ResponsiveContainer width="100%" height={280}>
+              <PieChart>
+                <Pie
+                  data={chartData}
+                  cx="50%"
+                  cy="50%"
+                  innerRadius={85}
+                  outerRadius={130}
+                  paddingAngle={3}
+                  dataKey="value"
+                  strokeWidth={0}
+                >
+                  {chartData.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={entry.color} />
+                  ))}
+                </Pie>
+              </PieChart>
+            </ResponsiveContainer>
+
+            {/* Center text */}
+            <div className="text-center -mt-44 mb-32">
+              <p className="text-sm text-muted-foreground">Total Payable</p>
+              <p className="text-2xl font-bold text-foreground">{formatCurrency(calculations.totalAmount)}</p>
+            </div>
+
+            <div className="flex gap-8 justify-center">
+              <div className="flex items-center gap-3">
+                <div className="w-4 h-4 rounded-full" style={{ backgroundColor: "#002D62" }} />
+                <div>
+                  <p className="text-sm text-muted-foreground">Principal</p>
+                  <p className="font-semibold text-foreground">{formatCurrency(calculations.principal)}</p>
                 </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 rounded-full bg-primary"></div>
-                  <span className="text-sm text-muted-foreground">Interest</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <div className="w-4 h-4 rounded-full" style={{ backgroundColor: "#D4A853" }} />
+                <div>
+                  <p className="text-sm text-muted-foreground">Interest</p>
+                  <p className="font-semibold text-foreground">{formatCurrency(calculations.totalInterest)}</p>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   )

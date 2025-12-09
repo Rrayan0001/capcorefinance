@@ -12,7 +12,6 @@ export default function Navigation() {
     { label: "About", href: "/about" },
     { label: "Services", href: "/services" },
     { label: "How It Works", href: "/how-it-works" },
-    { label: "Case Studies", href: "/case-studies" },
     { label: "Resources", href: "/resources" },
     { label: "Contact", href: "/contact" },
   ]
@@ -26,7 +25,7 @@ export default function Navigation() {
             <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
               <span className="text-primary-foreground font-bold text-lg">C</span>
             </div>
-            <span className="font-bold text-lg hidden sm:inline">Capital Core Finance</span>
+            <span className="font-bold text-lg hidden sm:inline text-foreground">Capital Core Finance</span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -35,7 +34,7 @@ export default function Navigation() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-sm font-medium hover:text-primary transition-colors"
+                className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
               >
                 {link.label}
               </Link>
@@ -61,7 +60,7 @@ export default function Navigation() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="block px-4 py-2 hover:bg-muted rounded-lg transition-colors"
+                className="block px-4 py-2 hover:bg-muted rounded-lg transition-colors text-foreground"
                 onClick={() => setIsOpen(false)}
               >
                 {link.label}

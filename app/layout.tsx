@@ -5,24 +5,25 @@ import { Analytics } from "@vercel/analytics/next"
 import Navigation from "@/components/navigation"
 import Footer from "@/components/footer"
 import ChatbotWidget from "@/components/chatbot-widget"
+import GSAPProvider from "@/components/gsap-provider"
 import "./globals.css"
 
 const poppins = Poppins({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["300", "400", "500", "600", "700"],
   display: "swap",
 })
 
 export const metadata: Metadata = {
   title: "Capital Core Finance - Complete Financing Solutions",
   description:
-    "Expert financing consultants for business loans, housing, education, machinery, and project loans. 18+ years experience, 500+ clients. Get pre-qualified today.",
+    "Expert financing consultants for business loans, project loans, housing, education, machinery. 38+ years combined experience, 500+ clients. Get pre-qualified today.",
   keywords:
-    "business loans, housing loans, project loans, education loans, machinery loans, loan consultants, Bengaluru, financial advisory",
+    "business loans, project loans, MSME loans, SME loans, housing loans, construction loans, education loans, machinery loans, loan consultants, Bengaluru, financial advisory",
   authors: [{ name: "Capital Core Finance" }],
   openGraph: {
     title: "Capital Core Finance - Complete Financing Solutions",
-    description: "Expert financing solutions for every dream. 18+ years experience, 500+ clients served.",
+    description: "Expert financing solutions for every dream. 38+ years combined experience, 500+ clients served.",
     type: "website",
     locale: "en_IN",
   },
@@ -46,7 +47,8 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "LocalBusiness",
               name: "Capital Core Finance",
-              description: "Complete financing solutions for business, housing, education, and machinery loans",
+              description:
+                "Complete financing solutions for business, project, housing, education, and machinery loans",
               address: {
                 "@type": "PostalAddress",
                 streetAddress: "Singanayakanahalli",
@@ -64,10 +66,12 @@ export default function RootLayout({
         />
       </head>
       <body className={`${poppins.className} font-sans antialiased bg-background text-foreground`}>
-        <Navigation />
-        {children}
-        <ChatbotWidget />
-        <Footer />
+        <GSAPProvider>
+          <Navigation />
+          {children}
+          <ChatbotWidget />
+          <Footer />
+        </GSAPProvider>
         <Analytics />
       </body>
     </html>

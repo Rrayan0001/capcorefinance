@@ -1,17 +1,24 @@
 "use client"
 
 import Link from "next/link"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
+import { motion, AnimatePresence } from "framer-motion"
+import { gsap } from "gsap"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
 
-const taglines = [
-  "Business Funding Made Easy",
-  "Project Loans for Growth",
-  "Housing Dreams Realized",
-  "Education Investment Ready",
-]
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger)
+}
+
+const taglines = ["Empowering Dreams", "Building Futures", "Funding Growth", "Enabling Success"]
 
 export default function HeroSection() {
   const [currentTagline, setCurrentTagline] = useState(0)
+  const sectionRef = useRef<HTMLElement>(null)
+  const headlineRef = useRef<HTMLHeadingElement>(null)
+  const subtextRef = useRef<HTMLParagraphElement>(null)
+  const ctaRef = useRef<HTMLDivElement>(null)
+  const badgesRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -20,67 +27,151 @@ export default function HeroSection() {
     return () => clearInterval(interval)
   }, [])
 
+  // GSAP animations on mount
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Staggered entrance animation
+      const tl = gsap.timeline({ defaults: { ease: "power4.out" } })
+
+      tl.fromTo(headlineRef.current, { opacity: 0, y: 60, scale: 0.95 }, { opacity: 1, y: 0, scale: 1, duration: 1.2 })
+        .fromTo(subtextRef.current, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.8 }, "-=0.6")
+        .fromTo(
+          ctaRef.current?.children || [],
+          { opacity: 0, y: 30, scale: 0.9 },
+          { opacity: 1, y: 0, scale: 1, stagger: 0.15, duration: 0.6 },
+          "-=0.4",
+        )
+        .fromTo(
+          badgesRef.current?.children || [],
+          { opacity: 0, y: 20, scale: 0.9 },
+          { opacity: 1, y: 0, scale: 1, stagger: 0.1, duration: 0.5 },
+          "-=0.3",
+        )
+
+      // Parallax effect on scroll
+      gsap.to(".hero-bg-circle", {
+        y: -100,
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top top",
+          end: "bottom top",
+          scrub: 1,
+        },
+      })
+    }, sectionRef)
+
+    return () => ctx.revert()
+  }, [])
+
   return (
-    <section className="relative py-20 md:py-32 bg-gradient-to-br from-primary to-primary/80 text-primary-foreground overflow-hidden">
-      {/* Background decoration */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute top-10 left-10 w-72 h-72 bg-primary-foreground rounded-full blur-3xl"></div>
-        <div className="absolute bottom-10 right-10 w-72 h-72 bg-primary-foreground rounded-full blur-3xl"></div>
+    <section
+      ref={sectionRef}
+      className="relative py-24 md:py-36 bg-gradient-to-br from-primary via-primary/95 to-primary/85 text-primary-foreground overflow-hidden"
+    >
+      {/* Animated background elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="hero-bg-circle absolute -top-20 -left-20 w-96 h-96 bg-primary-foreground/5 rounded-full blur-3xl" />
+        <div className="hero-bg-circle absolute top-1/2 -right-32 w-[500px] h-[500px] bg-accent/10 rounded-full blur-3xl" />
+        <div className="hero-bg-circle absolute -bottom-32 left-1/3 w-80 h-80 bg-primary-foreground/5 rounded-full blur-3xl" />
+
+        {/* Grid pattern overlay */}
+        <div
+          className="absolute inset-0 opacity-[0.03]"
+          style={{
+            backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
+                             linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
+            backgroundSize: "60px 60px",
+          }}
+        />
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="max-w-3xl mx-auto text-center">
+        <div className="max-w-4xl mx-auto text-center">
           {/* Animated Tagline Badge */}
-          <div className="inline-flex items-center gap-2 bg-primary-foreground/20 px-4 py-2 rounded-full mb-6 backdrop-blur-sm">
-            <span className="w-2 h-2 bg-accent rounded-full animate-pulse"></span>
-            <span className="text-sm font-medium min-h-6 transition-all duration-500">{taglines[currentTagline]}</span>
-          </div>
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            className="inline-flex items-center gap-3 bg-primary-foreground/10 backdrop-blur-md px-5 py-2.5 rounded-full mb-8 border border-primary-foreground/20"
+          >
+            <span className="relative flex h-2.5 w-2.5">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75" />
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-accent" />
+            </span>
+            <AnimatePresence mode="wait">
+              <motion.span
+                key={currentTagline}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.4 }}
+                className="text-sm font-semibold tracking-wide"
+              >
+                {taglines[currentTagline]}
+              </motion.span>
+            </AnimatePresence>
+          </motion.div>
 
           {/* Headline */}
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-balance">
-            Complete Financing Solutions for Every Dream
+          <h1
+            ref={headlineRef}
+            className="text-4xl md:text-6xl lg:text-7xl font-bold mb-8 leading-[1.1] tracking-tight text-balance"
+          >
+            Complete Financing Solutions for{" "}
+            <span className="relative inline-block">
+              <span className="relative z-10 text-accent">Every Dream</span>
+              <motion.span
+                className="absolute -bottom-2 left-0 w-full h-3 bg-accent/30 rounded-full -z-0"
+                initial={{ scaleX: 0 }}
+                animate={{ scaleX: 1 }}
+                transition={{ delay: 1.2, duration: 0.8, ease: "easeOut" }}
+              />
+            </span>
           </h1>
 
           {/* Subheadline */}
-          <p className="text-lg md:text-xl opacity-90 mb-8 text-balance">
-            18 years of combined expertise helping 500+ businesses and individuals achieve their financial goals — from
-            project development to education, housing, and beyond.
+          <p
+            ref={subtextRef}
+            className="text-lg md:text-xl lg:text-2xl opacity-90 mb-10 leading-relaxed max-w-3xl mx-auto text-balance font-light"
+          >
+            38+ years of combined expertise helping 500+ businesses and individuals achieve their financial goals
           </p>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div ref={ctaRef} className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/contact"
-              className="px-8 py-3 bg-accent text-accent-foreground rounded-lg font-semibold hover:scale-105 transition-transform duration-300"
+              className="group relative px-8 py-4 bg-accent text-accent-foreground rounded-xl font-semibold overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-accent/25"
             >
-              Get Pre-Qualified
+              <span className="relative z-10">Get Pre-Qualified</span>
+              <div className="absolute inset-0 bg-gradient-to-r from-accent to-accent/80 opacity-0 group-hover:opacity-100 transition-opacity" />
             </Link>
             <Link
               href="/how-it-works"
-              className="px-8 py-3 bg-primary-foreground text-primary rounded-lg font-semibold hover:scale-105 transition-transform duration-300"
+              className="group px-8 py-4 bg-primary-foreground/10 backdrop-blur-sm text-primary-foreground rounded-xl font-semibold border border-primary-foreground/20 hover:bg-primary-foreground/20 transition-all duration-300"
             >
               Learn Our Process
             </Link>
           </div>
 
           {/* Trust Badges */}
-          <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div className="bg-primary-foreground/10 backdrop-blur-sm p-4 rounded-lg hover:bg-primary-foreground/15 transition-colors">
-              <div className="font-bold text-2xl">500+</div>
-              <div className="text-sm opacity-75">Clients Served</div>
-            </div>
-            <div className="bg-primary-foreground/10 backdrop-blur-sm p-4 rounded-lg hover:bg-primary-foreground/15 transition-colors">
-              <div className="font-bold text-2xl">18+</div>
-              <div className="text-sm opacity-75">Years Experience</div>
-            </div>
-            <div className="bg-primary-foreground/10 backdrop-blur-sm p-4 rounded-lg hover:bg-primary-foreground/15 transition-colors">
-              <div className="font-bold text-2xl">95%</div>
-              <div className="text-sm opacity-75">Approval Rate</div>
-            </div>
-            <div className="bg-primary-foreground/10 backdrop-blur-sm p-4 rounded-lg hover:bg-primary-foreground/15 transition-colors">
-              <div className="font-bold text-2xl">Bengaluru</div>
-              <div className="text-sm opacity-75">Based</div>
-            </div>
+          <div ref={badgesRef} className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+            {[
+              { value: "500+", label: "Clients Served" },
+              { value: "38+", label: "Years Experience" },
+              { value: "95%", label: "Approval Rate" },
+              { value: "Bengaluru", label: "Based" },
+            ].map((badge, i) => (
+              <motion.div
+                key={badge.label}
+                whileHover={{ scale: 1.05, y: -5 }}
+                transition={{ type: "spring", stiffness: 300 }}
+                className="group relative bg-primary-foreground/5 backdrop-blur-md p-5 rounded-2xl border border-primary-foreground/10 hover:bg-primary-foreground/10 hover:border-primary-foreground/20 transition-all duration-300"
+              >
+                <div className="font-bold text-2xl md:text-3xl mb-1">{badge.value}</div>
+                <div className="text-sm opacity-70">{badge.label}</div>
+              </motion.div>
+            ))}
           </div>
         </div>
       </div>
