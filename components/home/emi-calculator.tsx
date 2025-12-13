@@ -11,6 +11,8 @@ import { Calculator } from "lucide-react"
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger)
 }
+const MIN_LOAN = 100_000           // 1 Lakh
+const MAX_LOAN = 10_000_000_000    // 1000 Crore
 
 export default function EMICalculator() {
   const [loanAmount, setLoanAmount] = useState(2500000)
@@ -21,7 +23,7 @@ export default function EMICalculator() {
   const tenureYears = Math.floor(tenureMonths / 12)
   const tenureRemainingMonths = tenureMonths % 12
 
-  const loanProgress = ((loanAmount - 100000) / (10000000 - 100000)) * 100
+  const loanProgress = ((loanAmount - MIN_LOAN) / (MAX_LOAN - MIN_LOAN)) * 100
   const interestProgress = ((interestRate - 5) / (20 - 5)) * 100
   const tenureProgress = ((tenureMonths - 12) / (360 - 12)) * 100
 
@@ -59,9 +61,9 @@ export default function EMICalculator() {
   const handleLoanAmountInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.replace(/,/g, "")
     const numValue = Number.parseInt(value) || 0
-    if (numValue >= 0 && numValue <= 10000000) {
-      setLoanAmount(numValue)
-    }
+    if (numValue >= MIN_LOAN && numValue <= MAX_LOAN) {
+  setLoanAmount(numValue)
+}
   }
 
   const handleInterestInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -164,14 +166,15 @@ export default function EMICalculator() {
                 />
                 <input
                   type="range"
-                  min="100000"
-                  max="10000000"
-                  step="10000"
+                  min={MIN_LOAN}
+                  max={MAX_LOAN}
+                  step="100000"
                   value={loanAmount}
                   onChange={(e) => setLoanAmount(Number(e.target.value))}
                   className="absolute inset-0 w-full h-full cursor-pointer"
                   style={{ opacity: 0 }}
                 />
+
                 <div
                   className="absolute top-1/2 -translate-y-1/2 w-6 h-6 bg-gradient-to-br from-accent to-accent/80 rounded-full shadow-lg shadow-accent/30 border-[3px] border-white pointer-events-none transition-all duration-200"
                   style={{ left: `calc(${loanProgress}% - 12px)` }}
@@ -179,7 +182,7 @@ export default function EMICalculator() {
               </div>
               <div className="flex justify-between text-xs text-muted-foreground mt-3 font-medium">
                 <span>₹1 Lakh</span>
-                <span>₹1 Crore</span>
+                <span>₹1000 Crore</span>
               </div>
             </div>
 
@@ -315,18 +318,20 @@ export default function EMICalculator() {
 
           {/* Pie Chart */}
           <div className="premium-card p-8 lg:p-10 rounded-3xl flex flex-col items-center justify-center">
-            <div className="w-full max-w-[300px] mx-auto">
-              <ResponsiveContainer width="100%" height={280}>
+            <div className="relative w-full max-w-[320px] mx-auto h-[280px]">
+              {/* Chart */}
+              <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
                   <Pie
                     data={chartData}
                     cx="50%"
                     cy="50%"
-                    innerRadius={80}
-                    outerRadius={120}
+                    innerRadius={100}
+                    outerRadius={140}
                     paddingAngle={4}
                     dataKey="value"
                     strokeWidth={0}
+                    isAnimationActive={false}
                   >
                     {chartData.map((entry, index) => (
                       <Cell key={`cell-${index}`} fill={entry.color} />
@@ -334,12 +339,19 @@ export default function EMICalculator() {
                   </Pie>
                 </PieChart>
               </ResponsiveContainer>
+
+              {/* Center Text */}
+              <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+                <p className="text-sm text-muted-foreground mb-1">
+                  Total Payable
+                </p>
+                <p className="text-xl md:text-2xl font-bold gradient-text text-center leading-tight px-4">
+                  {formatCurrency(calculations.totalAmount)}
+                </p>
+              </div>
             </div>
 
-            <div className="text-center -mt-40 mb-28">
-              <p className="text-sm text-muted-foreground mb-1">Total Payable</p>
-              <p className="text-2xl font-bold gradient-text">{formatCurrency(calculations.totalAmount)}</p>
-            </div>
+
 
             <div className="flex gap-10 justify-center">
               <div className="flex items-center gap-3">
