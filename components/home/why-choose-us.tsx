@@ -88,7 +88,7 @@ export default function WhyChooseUs() {
             {/* Stats row */}
             <div className="flex gap-8">
               <div>
-                <div className="text-4xl font-bold gradient-text">95%</div>
+                <div className="text-4xl font-bold gradient-text">98%</div>
                 <div className="text-sm text-muted-foreground mt-1">Approval Rate</div>
               </div>
               <div>
@@ -96,7 +96,7 @@ export default function WhyChooseUs() {
                 <div className="text-sm text-muted-foreground mt-1">Happy Clients</div>
               </div>
               <div>
-                <div className="text-4xl font-bold gradient-text">38+</div>
+                <div className="text-4xl font-bold gradient-text">26+</div>
                 <div className="text-sm text-muted-foreground mt-1">Years Combined</div>
               </div>
             </div>

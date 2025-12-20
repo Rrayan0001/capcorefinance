@@ -142,7 +142,7 @@ export default function HeroSection() {
             transition={{ duration: 0.8, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
             className="text-lg md:text-xl lg:text-2xl text-primary-foreground/80 mb-12 leading-relaxed max-w-3xl mx-auto font-light"
           >
-            38+ years of combined expertise helping 500+ businesses and individuals achieve their financial goals
+            26+ years of combined expertise helping 500+ businesses and individuals achieve their financial goals
           </motion.p>
 
           {/* CTA Buttons */}
@@ -177,9 +177,9 @@ export default function HeroSection() {
           >
             {[
               { value: "500+", label: "Clients Served" },
-              { value: "38+", label: "Years Experience" },
-              { value: "95%", label: "Approval Rate" },
-              { value: "Bengaluru", label: "Based" },
+              { value: "26+", label: "Years Experience" },
+              { value: "98%", label: "Approval Rate" },
+              { value: "Banglore", label: "Based" },
             ].map((badge, i) => (
               <motion.div
                 key={badge.label}

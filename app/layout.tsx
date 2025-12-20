@@ -17,13 +17,13 @@ const poppins = Poppins({
 export const metadata: Metadata = {
   title: "Capital Core Finance - Complete Financing Solutions",
   description:
-    "Expert financing consultants for business loans, project loans, housing, education, machinery. 38+ years combined experience, 500+ clients. Get pre-qualified today.",
+    "Expert financing consultants for business loans, project loans, housing, education, machinery. 26+ years combined experience, 500+ clients. Get pre-qualified today.",
   keywords:
     "business loans, project loans, MSME loans, SME loans, housing loans, construction loans, education loans, machinery loans, loan consultants, Bengaluru, financial advisory",
   authors: [{ name: "Capital Core Finance" }],
   openGraph: {
     title: "Capital Core Finance - Complete Financing Solutions",
-    description: "Expert financing solutions for every dream. 38+ years combined experience, 500+ clients served.",
+    description: "Expert financing solutions for every dream. 26+ years combined experience, 500+ clients served.",
     type: "website",
     locale: "en_IN",
   },
