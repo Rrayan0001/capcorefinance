@@ -17,7 +17,7 @@ const MAX_LOAN = 10_000_000_000 // 1000 Crore
 
 export default function EMICalculator() {
   const [loanAmount, setLoanAmount] = useState(100_000)
-  const [interestRate, setInterestRate] = useState(10.5)
+  const [interestRate, setInterestRate] = useState(0)
   const [tenureMonths, setTenureMonths] = useState(60)
   const [loanAmountError, setLoanAmountError] = useState(false)
   const [interestRateError, setInterestRateError] = useState(false)
@@ -28,7 +28,7 @@ export default function EMICalculator() {
   const tenureRemainingMonths = tenureMonths % 12
 
   const loanProgress = ((loanAmount - MIN_LOAN) / (MAX_LOAN - MIN_LOAN)) * 100
-  const interestProgress = ((interestRate - 5) / (20 - 5)) * 100
+  const interestProgress = Math.min( 100, Math.max(0, (interestRate / 30) * 100))
   const tenureProgress = ((tenureMonths - 12) / (360 - 12)) * 100
 
   const calculations = useMemo(() => {
@@ -98,7 +98,7 @@ export default function EMICalculator() {
   const handleInterestInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = Number.parseFloat(e.target.value) || 0
 
-    if (value < 5 || value > 20) {
+    if (value < 0 || value > 30) {
       setInterestRateError(true)
     } else {
       setInterestRateError(false)
@@ -270,8 +270,8 @@ export default function EMICalculator() {
                 />
                 <input
                   type="range"
-                  min="5"
-                  max="20"
+                  min="0"
+                  max="30"
                   step="0.1"
                   value={interestRate}
                   onChange={(e) => {
@@ -286,11 +286,11 @@ export default function EMICalculator() {
                 />
               </div>
               <div className="flex justify-between text-xs text-muted-foreground mt-3 font-medium">
-                <span>5%</span>
-                <span>20%</span>
+                <span>0%</span>
+                <span>30%</span>
               </div>
               {interestRateError && (
-                <p className="text-xs text-red-600 mt-2">Interest rate must be between 5% and 20%</p>
+                <p className="text-xs text-red-600 mt-2">Interest rate must be between 0% and 30%</p>
               )}
             </div>
 
