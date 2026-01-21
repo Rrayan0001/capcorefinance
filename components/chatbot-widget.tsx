@@ -85,7 +85,7 @@ export default function ChatbotWidget() {
         onClick={() => setIsOpen(!isOpen)}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
-        className="fixed bottom-6 right-6 w-14 h-14 bg-primary text-primary-foreground rounded-full flex items-center justify-center shadow-2xl shadow-primary/30 z-50"
+        className="fixed bottom-6 right-4 md:right-6 w-14 h-14 bg-primary text-primary-foreground rounded-full flex items-center justify-center shadow-2xl shadow-primary/30 z-50"
         aria-label="Open chat"
       >
         <AnimatePresence mode="wait">
@@ -121,7 +121,7 @@ export default function ChatbotWidget() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.2, ease: "easeOut" }}
-            className="fixed bottom-24 right-6 w-[360px] max-h-[500px] bg-card border border-border rounded-2xl shadow-2xl flex flex-col z-50 overflow-hidden"
+            className="fixed bottom-20 right-4 left-4 md:left-auto md:bottom-24 md:right-6 w-auto md:w-[360px] max-h-[500px] bg-card border border-border rounded-2xl shadow-2xl flex flex-col z-50 overflow-hidden"
           >
             {/* Header */}
             <div className="bg-primary text-primary-foreground px-5 py-4">
@@ -139,11 +139,10 @@ export default function ChatbotWidget() {
                   className={`flex ${message.sender === "user" ? "justify-end" : "justify-start"}`}
                 >
                   <div
-                    className={`max-w-[85%] px-4 py-3 rounded-2xl ${
-                      message.sender === "user"
+                    className={`max-w-[85%] px-4 py-3 rounded-2xl ${message.sender === "user"
                         ? "bg-primary text-primary-foreground rounded-br-sm"
                         : "bg-card border border-border text-foreground rounded-bl-sm"
-                    }`}
+                      }`}
                   >
                     <p className="text-sm leading-relaxed">{message.text}</p>
 

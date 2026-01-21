@@ -6,6 +6,7 @@ import Navigation from "@/components/navigation"
 import Footer from "@/components/footer"
 import ChatbotWidget from "@/components/chatbot-widget"
 import GSAPProvider from "@/components/gsap-provider"
+import SmoothScroll from "@/components/smooth-scroll"
 import "./globals.css"
 
 const poppins = Poppins({
@@ -28,7 +29,9 @@ export const metadata: Metadata = {
     locale: "en_IN",
   },
   robots: "index, follow",
-  canonical: "https://capitalcorefinance.com",
+  alternates: {
+    canonical: "https://capitalcorefinance.com",
+  },
   generator: "v0.app",
 }
 
@@ -38,7 +41,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <head>
         <script
           type="application/ld+json"
@@ -67,6 +70,7 @@ export default function RootLayout({
       </head>
       <body className={`${poppins.className} font-sans antialiased bg-background text-foreground`}>
         <GSAPProvider>
+          <SmoothScroll />
           <Navigation />
           {children}
           <ChatbotWidget />

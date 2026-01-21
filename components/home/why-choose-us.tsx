@@ -60,12 +60,12 @@ export default function WhyChooseUs() {
   }, [])
 
   return (
-    <section ref={sectionRef} className="py-24 md:py-32 section-gradient-alt relative overflow-hidden">
+    <section ref={sectionRef} className="py-12 md:py-32 bg-[#f8f9fc] relative overflow-hidden">
       {/* Background decoration */}
       <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-l from-accent/5 to-transparent rounded-full blur-3xl" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
           {/* Left Content */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -73,31 +73,33 @@ export default function WhyChooseUs() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <span className="inline-flex items-center gap-2 text-primary font-semibold text-sm tracking-wider uppercase mb-4 bg-primary/5 px-5 py-2.5 rounded-full border border-primary/10">
-              <Sparkles className="w-4 h-4" />
-              Why Choose Us
-            </span>
-            <h2 className="text-3xl md:text-5xl font-bold mb-6 tracking-tight text-foreground">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="h-px w-12 bg-accent" />
+              <div className="w-2 h-2 rounded-full bg-accent" />
+              <span className="text-accent font-bold text-xs md:text-sm tracking-widest uppercase">Why Choose Us</span>
+            </div>
+
+            <h2 className="text-2xl md:text-5xl font-bold mb-4 md:mb-6 tracking-tight text-[#1a1a2e]">
               Why <span className="gradient-text">2500+ Clients</span> Trust Capital Core
             </h2>
-            <p className="text-lg text-muted-foreground leading-relaxed mb-8">
+            <p className="text-base md:text-lg text-muted-foreground leading-relaxed mb-6 md:mb-8">
               Our commitment to excellence and client success drives everything we do. We combine deep expertise with
               personalized service.
             </p>
 
             {/* Stats row */}
-            <div className="flex gap-8">
-              <div>
-                <div className="text-4xl font-bold gradient-text">98%</div>
-                <div className="text-sm text-muted-foreground mt-1">Approval Rate</div>
+            <div className="flex gap-6 md:gap-8 overflow-x-auto pb-2 md:pb-0 scrollbar-hide">
+              <div className="flex-shrink-0">
+                <div className="text-3xl md:text-4xl font-bold gradient-text">98%</div>
+                <div className="text-xs md:text-sm text-muted-foreground mt-1">Approval Rate</div>
               </div>
-              <div>
-                <div className="text-4xl font-bold gradient-text">2500+</div>
-                <div className="text-sm text-muted-foreground mt-1">Happy Clients</div>
+              <div className="flex-shrink-0">
+                <div className="text-3xl md:text-4xl font-bold gradient-text">2500+</div>
+                <div className="text-xs md:text-sm text-muted-foreground mt-1">Happy Clients</div>
               </div>
-              <div>
-                <div className="text-4xl font-bold gradient-text">18+</div>
-                <div className="text-sm text-muted-foreground mt-1">Years Combined</div>
+              <div className="flex-shrink-0">
+                <div className="text-3xl md:text-4xl font-bold gradient-text">18+</div>
+                <div className="text-xs md:text-sm text-muted-foreground mt-1">Years Combined</div>
               </div>
             </div>
           </motion.div>
@@ -107,13 +109,13 @@ export default function WhyChooseUs() {
             {reasons.map((reason, index) => {
               const Icon = reason.icon
               return (
-                <div key={index} className="reason-card premium-card p-6 rounded-2xl flex gap-5 items-start">
+                <div key={index} className="reason-card bg-white shadow-sm hover:shadow-md transition-shadow duration-300 p-6 rounded-2xl flex gap-5 items-start border border-gray-100">
                   <div className="flex-shrink-0 p-3 bg-gradient-to-br from-accent/20 to-accent/5 rounded-xl">
                     <Icon className="text-accent" size={24} />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-lg mb-1 text-foreground">{reason.title}</h3>
-                    <p className="text-muted-foreground text-sm leading-relaxed">{reason.description}</p>
+                    <h3 className="font-semibold text-lg mb-1 text-[#1a1a2e]">{reason.title}</h3>
+                    <p className="text-gray-600 text-sm leading-relaxed">{reason.description}</p>
                   </div>
                 </div>
               )

@@ -1,35 +1,24 @@
 "use client"
 
 import Link from "next/link"
-import { useState, useEffect, useRef } from "react"
-import { motion, AnimatePresence } from "framer-motion"
+import { useRef, useEffect } from "react"
+import { motion } from "framer-motion"
+import { ArrowLeft } from "lucide-react"
 import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
-import { ArrowRight, Sparkles } from "lucide-react"
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger)
 }
 
-const taglines = ["Empowering Dreams", "Building Futures", "Funding Growth", "Enabling Success"]
-
 export default function HeroSection() {
-  const [currentTagline, setCurrentTagline] = useState(0)
   const sectionRef = useRef<HTMLElement>(null)
-  const contentRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentTagline((prev) => (prev + 1) % taglines.length)
-    }, 3000)
-    return () => clearInterval(interval)
-  }, [])
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Parallax effect on scroll
-      gsap.to(".hero-orb", {
-        y: -150,
+      // Subtle parallax on the background
+      gsap.to(".hero-bg", {
+        y: 50,
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top top",
@@ -43,157 +32,124 @@ export default function HeroSection() {
   }, [])
 
   return (
-    <section ref={sectionRef} className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-      {/* Premium gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary/95 to-primary/90" />
-
-      {/* Animated orbs */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="hero-orb absolute -top-40 -left-40 w-[600px] h-[600px] bg-accent/20 rounded-full blur-[120px] animate-pulse-glow" />
-        <div className="hero-orb absolute top-1/3 -right-40 w-[500px] h-[500px] bg-primary-foreground/10 rounded-full blur-[100px]" />
-        <div className="hero-orb absolute -bottom-60 left-1/4 w-[700px] h-[700px] bg-accent/10 rounded-full blur-[140px]" />
+    <section ref={sectionRef} className="relative min-h-screen h-screen w-full max-w-[100vw] flex items-center overflow-hidden">
+      {/* Background Image with Dark Overlay */}
+      <div className="hero-bg absolute inset-0">
+        <div
+          className="absolute inset-0 bg-cover bg-[35%_top] md:bg-[center_top] bg-no-repeat"
+          style={{
+            backgroundImage: `url('/hero-bg.jpg')`,
+          }}
+        />
+        {/* Dark gradient overlay for text contrast */}
+        <div className="absolute inset-0 bg-gradient-to-l from-[#1a1a2e]/90 via-[#1a1a2e]/60 to-[#1a1a2e]/20 md:to-transparent" />
       </div>
 
-      {/* Subtle grid pattern */}
+      {/* Decorative grid pattern */}
       <div
         className="absolute inset-0 opacity-[0.03]"
         style={{
           backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
                            linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
-          backgroundSize: "80px 80px",
+          backgroundSize: "60px 60px",
         }}
       />
 
-      {/* Floating particles */}
-      <div className="absolute inset-0">
-        {[...Array(6)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-2 h-2 bg-accent/40 rounded-full"
-            style={{
-              left: `${15 + i * 15}%`,
-              top: `${20 + (i % 3) * 25}%`,
-            }}
-            animate={{
-              y: [-20, 20, -20],
-              opacity: [0.2, 0.6, 0.2],
-            }}
-            transition={{
-              duration: 4 + i,
-              repeat: Number.POSITIVE_INFINITY,
-              ease: "easeInOut",
-              delay: i * 0.5,
-            }}
-          />
-        ))}
-      </div>
-
-      <div ref={contentRef} className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div className="max-w-4xl mx-auto text-center">
-          {/* Animated Badge */}
-          <motion.div
-            initial={{ opacity: 0, y: 30, scale: 0.9 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            className="inline-flex items-center gap-3 glass-dark px-5 py-2.5 rounded-full mb-8"
-          >
-            <span className="relative flex h-2.5 w-2.5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75" />
-              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-accent" />
-            </span>
-            <AnimatePresence mode="wait">
-              <motion.span
-                key={currentTagline}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.4 }}
-                className="text-sm font-semibold tracking-wide text-primary-foreground"
-              >
-                {taglines[currentTagline]}
-              </motion.span>
-            </AnimatePresence>
-          </motion.div>
-
-          {/* Headline */}
-          <motion.h1
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-            className="text-4xl md:text-6xl lg:text-7xl font-bold mb-8 leading-[1.05] tracking-tight text-primary-foreground"
-          >
-            Complete Financing <br className="hidden sm:block" />
-            Solutions for{" "}
-            <span className="relative inline-block">
-              <span className="relative z-10 text-accent">Every Dream</span>
-              <motion.span
-                className="absolute -bottom-2 left-0 w-full h-3 bg-accent/30 rounded-full"
-                initial={{ scaleX: 0, originX: 0 }}
-                animate={{ scaleX: 1 }}
-                transition={{ delay: 1.2, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-              />
-            </span>
-          </motion.h1>
-
-          {/* Subheadline */}
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
-            className="text-lg md:text-xl lg:text-2xl text-primary-foreground/80 mb-12 leading-relaxed max-w-3xl mx-auto font-light"
-          >
-            18+ years of combined expertise helping 2500+ businesses and individuals achieve their financial goals
-          </motion.p>
-
-          {/* CTA Buttons */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            className="flex flex-col sm:flex-row gap-4 justify-center"
-          >
-            <Link
-              href="/contact"
-              className="group premium-btn-gold px-8 py-4 text-accent-foreground rounded-2xl font-semibold inline-flex items-center justify-center gap-3"
+      {/* Content Container */}
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-16 md:py-32">
+        <div className="flex justify-center md:justify-end">
+          <div className="max-w-2xl text-center md:text-right">
+            {/* Badge */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              className="inline-flex items-center gap-3 mb-6"
             >
-              <Sparkles className="w-5 h-5" />
-              Get Pre-Qualified
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </Link>
-            <Link
-              href="/how-it-works"
-              className="group px-8 py-4 glass-dark text-primary-foreground rounded-2xl font-semibold inline-flex items-center justify-center gap-2 hover:bg-white/20 transition-all"
-            >
-              Learn Our Process
-            </Link>
-          </motion.div>
+              <span className="flex items-center gap-2">
+                <span className="w-8 h-[2px] rounded-full bg-white shrink-0" />
+                <span className="w-1.5 h-1.5 rounded-full bg-white shrink-0" />
+              </span>
+              <span className="text-sm font-bold tracking-widest text-white uppercase whitespace-nowrap">
+                Business Consultant
+              </span>
+              <span className="flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-white shrink-0" />
+                <span className="w-8 h-[2px] rounded-full bg-white shrink-0" />
+              </span>
+            </motion.div>
 
-          {/* Trust Badges */}
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6"
-          >
-            {[
-              { value: "2500+", label: "Clients Served" },
-              { value: "18+", label: "Years Experience" },
-              { value: "98%", label: "Approval Rate" },
-              { value: "Banglore", label: "Based" },
-            ].map((badge, i) => (
-              <motion.div
-                key={badge.label}
-                whileHover={{ scale: 1.05, y: -5 }}
-                transition={{ type: "spring", stiffness: 400, damping: 15 }}
-                className="glass-dark p-6 rounded-2xl group cursor-default"
+            {/* Headline */}
+            <motion.h1
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+              className="text-3xl md:text-5xl lg:text-6xl font-bold mb-6 leading-[1.1] text-white"
+            >
+              Complete Financing{" "}
+              <span className="text-accent">Solutions</span>
+              <br />
+              for Every Dream
+            </motion.h1>
+
+            {/* Subheadline */}
+            <motion.p
+              initial={{ opacity: 0, y: 25 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+              className="text-base md:text-lg text-white/70 mb-8 md:mb-10 leading-relaxed max-w-xl mx-auto md:ml-auto md:mr-0"
+            >
+              18+ years of combined expertise helping 2500+ businesses and individuals achieve their
+              financial goals
+            </motion.p>
+
+            {/* CTA Buttons */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+              className="flex flex-col sm:flex-row items-center gap-4 justify-center md:justify-end mb-12"
+            >
+              <Link
+                href="/contact"
+                className="group inline-flex items-center gap-3 px-6 py-3 md:px-8 md:py-4 premium-btn-gold text-white rounded-full font-semibold text-base transition-all hover:scale-105 w-full sm:w-auto justify-center"
               >
-                <div className="font-bold text-2xl md:text-3xl mb-1 text-primary-foreground group-hover:text-accent transition-colors">
-                  {badge.value}
-                </div>
-                <div className="text-sm text-primary-foreground/60">{badge.label}</div>
-              </motion.div>
-            ))}
-          </motion.div>
+                <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
+                Get Pre-Qualified
+              </Link>
+              <Link
+                href="/how-it-works"
+                className="group inline-flex items-center gap-3 px-6 py-3 md:px-8 md:py-4 bg-white/10 backdrop-blur-md border border-white/20 text-white rounded-full font-semibold text-base transition-all hover:bg-white/20 hover:scale-105 w-full sm:w-auto justify-center"
+              >
+                Learn Our Process
+              </Link>
+            </motion.div>
+
+            {/* Stats Grid */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
+              className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 border-t border-white/10 pt-8"
+            >
+              <div className="text-center md:text-right">
+                <p className="text-2xl md:text-3xl font-bold text-white mb-1">2500+</p>
+                <p className="text-xs md:text-sm text-white/60 uppercase tracking-wider">Clients Served</p>
+              </div>
+              <div className="text-center md:text-right">
+                <p className="text-2xl md:text-3xl font-bold text-white mb-1">18+</p>
+                <p className="text-xs md:text-sm text-white/60 uppercase tracking-wider">Years Experience</p>
+              </div>
+              <div className="text-center md:text-right">
+                <p className="text-2xl md:text-3xl font-bold text-white mb-1">98%</p>
+                <p className="text-xs md:text-sm text-white/60 uppercase tracking-wider">Approval Rate</p>
+              </div>
+              <div className="text-center md:text-right">
+                <p className="text-2xl md:text-3xl font-bold text-white mb-1">Bengaluru</p>
+                <p className="text-xs md:text-sm text-white/60 uppercase tracking-wider">Based</p>
+              </div>
+            </motion.div>
+          </div>
         </div>
       </div>
 

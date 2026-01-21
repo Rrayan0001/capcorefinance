@@ -37,24 +37,23 @@ export default function CompanyOverview() {
   }, [])
 
   return (
-    <section ref={sectionRef} className="py-20 md:py-28 bg-gradient-to-b from-background to-secondary/30">
+    <section ref={sectionRef} className="py-12 md:py-28 mt-8 md:mt-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid md:grid-cols-2 gap-12 items-center">
+        <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
           {/* Left - About Us Image */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="overview-card relative"
+            className="overview-card relative w-full"
           >
-            <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-accent/20">
+            <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-accent aspect-[3/4] max-w-[400px] mx-auto">
               <Image
                 src="/images/img2.jpg"
                 alt="About Capital Core Finance"
-                width={600}
-                height={800}
-                className="w-full h-auto"
+                fill
+                className="object-cover"
               />
             </div>
           </motion.div>
@@ -65,15 +64,14 @@ export default function CompanyOverview() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="overview-card relative"
+            className="overview-card relative w-full"
           >
-            <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-primary/20">
+            <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-accent aspect-[3/4] max-w-[400px] mx-auto">
               <Image
                 src="/images/img1.jpg"
                 alt="Loan Solutions by Capital Core Finance"
-                width={600}
-                height={1200}
-                className="w-full h-auto"
+                fill
+                className="object-cover"
               />
             </div>
           </motion.div>
@@ -85,7 +83,7 @@ export default function CompanyOverview() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="mt-16 grid sm:grid-cols-2 lg:grid-cols-4 gap-6"
+          className="mt-10 md:mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6"
         >
           {[
             "End-to-end guidance",

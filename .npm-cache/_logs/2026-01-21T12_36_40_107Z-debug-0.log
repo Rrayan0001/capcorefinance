@@ -1,0 +1,101 @@
+0 verbose cli /usr/local/bin/node /usr/local/bin/npm
+1 info using npm@11.6.2
+2 info using node@v24.11.1
+3 silly config load:file:/usr/local/lib/node_modules/npm/npmrc
+4 silly config load:file:/Users/mrrayan07/Desktop/capcore/v0-CapitalCoreFinance/.npmrc
+5 silly config load:file:/Users/mrrayan07/.npmrc
+6 silly config load:file:/usr/local/etc/npmrc
+7 verbose title npm install lenis
+8 verbose argv "install" "lenis"
+9 verbose logfile logs-max:10 dir:/Users/mrrayan07/Desktop/capcore/v0-CapitalCoreFinance/.npm-cache/_logs/2026-01-21T12_36_40_107Z-
+10 verbose logfile /Users/mrrayan07/Desktop/capcore/v0-CapitalCoreFinance/.npm-cache/_logs/2026-01-21T12_36_40_107Z-debug-0.log
+11 silly logfile done cleaning log files
+12 silly packumentCache heap:2348810240 maxSize:587202560 maxEntrySize:293601280
+13 silly idealTree buildDeps
+14 silly fetch manifest lenis@*
+15 silly packumentCache full:https://registry.npmjs.org/lenis cache-miss
+16 http fetch GET 200 https://registry.npmjs.org/lenis 1966ms (cache miss)
+17 silly packumentCache full:https://registry.npmjs.org/lenis set size:undefined disposed:false
+18 silly fetch manifest @nuxt/kit@>=3.0.0
+19 silly packumentCache full:https://registry.npmjs.org/@nuxt%2fkit cache-miss
+20 http fetch GET 200 https://registry.npmjs.org/@nuxt%2fkit 981ms (cache miss)
+21 silly packumentCache full:https://registry.npmjs.org/@nuxt%2fkit set size:undefined disposed:false
+22 silly fetch manifest react@19.2.0
+23 silly packumentCache full:https://registry.npmjs.org/react cache-miss
+24 http fetch GET 200 https://registry.npmjs.org/react 922ms (cache revalidated)
+25 silly packumentCache full:https://registry.npmjs.org/react set size:6398188 disposed:false
+26 silly fetch manifest vue@>=3.0.0
+27 silly packumentCache full:https://registry.npmjs.org/vue cache-miss
+28 http fetch GET 200 https://registry.npmjs.org/vue 132ms (cache revalidated)
+29 silly packumentCache full:https://registry.npmjs.org/vue set size:1984085 disposed:false
+30 silly fetch manifest typescript@^5
+31 silly packumentCache full:https://registry.npmjs.org/typescript cache-miss
+32 http fetch GET 200 https://registry.npmjs.org/typescript 189ms (cache revalidated)
+33 silly packumentCache full:https://registry.npmjs.org/typescript set size:15152169 disposed:false
+34 silly placeDep ROOT lenis@1.3.17 OK for: my-v0-project@0.1.0 want: *
+35 silly fetch manifest react@^16.8 || ^17.0 || ^18.0
+36 silly packumentCache full:https://registry.npmjs.org/react cache-miss
+37 http cache https://registry.npmjs.org/react 16ms (cache hit)
+38 silly packumentCache full:https://registry.npmjs.org/react set size:6398188 disposed:false
+39 silly fetch manifest react-dom@^16.8 || ^17.0 || ^18.0
+40 silly packumentCache full:https://registry.npmjs.org/react-dom cache-miss
+41 http fetch GET 200 https://registry.npmjs.org/react-dom 113ms (cache revalidated)
+42 silly packumentCache full:https://registry.npmjs.org/react-dom set size:8436180 disposed:false
+43 verbose stack Error: could not resolve
+43 verbose stack     at PlaceDep.failPeerConflict (/usr/local/lib/node_modules/npm/node_modules/@npmcli/arborist/lib/place-dep.js:503:25)
+43 verbose stack     at new PlaceDep (/usr/local/lib/node_modules/npm/node_modules/@npmcli/arborist/lib/place-dep.js:157:21)
+43 verbose stack     at #buildDepStep (/usr/local/lib/node_modules/npm/node_modules/@npmcli/arborist/lib/arborist/build-ideal-tree.js:945:18)
+43 verbose stack     at async Arborist.buildIdealTree (/usr/local/lib/node_modules/npm/node_modules/@npmcli/arborist/lib/arborist/build-ideal-tree.js:182:7)
+43 verbose stack     at async Promise.all (index 1)
+43 verbose stack     at async Arborist.reify (/usr/local/lib/node_modules/npm/node_modules/@npmcli/arborist/lib/arborist/reify.js:114:5)
+43 verbose stack     at async Install.exec (/usr/local/lib/node_modules/npm/lib/commands/install.js:150:5)
+43 verbose stack     at async Npm.exec (/usr/local/lib/node_modules/npm/lib/npm.js:208:9)
+43 verbose stack     at async module.exports (/usr/local/lib/node_modules/npm/lib/cli/entry.js:67:5)
+44 error code ERESOLVE
+45 error ERESOLVE could not resolve
+46 error
+47 error While resolving: vaul@0.9.9
+47 error Found: react@19.2.0
+47 error node_modules/react
+47 error   peer react@">=16.8.0" from @floating-ui/react-dom@2.1.6
+47 error   node_modules/@floating-ui/react-dom
+47 error     @floating-ui/react-dom@"^2.0.0" from @radix-ui/react-popper@1.2.1
+47 error     node_modules/@radix-ui/react-popper
+47 error       @radix-ui/react-popper@"1.2.1" from @radix-ui/react-hover-card@1.1.4
+47 error       node_modules/@radix-ui/react-hover-card
+47 error         @radix-ui/react-hover-card@"1.1.4" from the root project
+47 error       4 more (@radix-ui/react-menu, @radix-ui/react-popover, ...)
+47 error   peer react@"^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc" from @radix-ui/react-accordion@1.2.2
+47 error   node_modules/@radix-ui/react-accordion
+47 error     @radix-ui/react-accordion@"1.2.2" from the root project
+47 error   74 more (@radix-ui/react-alert-dialog, @radix-ui/react-arrow, ...)
+47 error
+47 error Could not resolve dependency:
+47 error peer react@"^16.8 || ^17.0 || ^18.0" from vaul@0.9.9
+47 error node_modules/vaul
+47 error   vaul@"^0.9.9" from the root project
+47 error
+47 error Conflicting peer dependency: react@18.3.1
+47 error node_modules/react
+47 error   peer react@"^16.8 || ^17.0 || ^18.0" from vaul@0.9.9
+47 error   node_modules/vaul
+47 error     vaul@"^0.9.9" from the root project
+47 error
+47 error Fix the upstream dependency conflict, or retry
+47 error this command with --force or --legacy-peer-deps
+47 error to accept an incorrect (and potentially broken) dependency resolution.
+48 error
+48 error
+48 error For a full report see:
+48 error /Users/mrrayan07/Desktop/capcore/v0-CapitalCoreFinance/.npm-cache/_logs/2026-01-21T12_36_40_107Z-eresolve-report.txt
+49 silly unfinished npm timer reify 1768999001682
+50 silly unfinished npm timer reify:loadTrees 1768999001687
+51 silly unfinished npm timer idealTree:buildDeps 1768999001904
+52 silly unfinished npm timer idealTree:node_modules/vaul 1768999006386
+53 verbose cwd /Users/mrrayan07/Desktop/capcore/v0-CapitalCoreFinance
+54 verbose os Darwin 25.1.0
+55 verbose node v24.11.1
+56 verbose npm  v11.6.2
+57 verbose exit 1
+58 verbose code 1
+59 error A complete log of this run can be found in: /Users/mrrayan07/Desktop/capcore/v0-CapitalCoreFinance/.npm-cache/_logs/2026-01-21T12_36_40_107Z-debug-0.log

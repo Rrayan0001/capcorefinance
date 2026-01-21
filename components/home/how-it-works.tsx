@@ -67,7 +67,7 @@ export default function HowItWorks() {
   return (
     <section
       ref={sectionRef}
-      className="py-24 md:py-32 bg-gradient-to-b from-primary via-primary/95 to-primary relative overflow-hidden"
+      className="py-16 md:py-32 bg-gradient-to-b from-primary via-primary/95 to-primary relative overflow-hidden"
     >
       {/* Background decorations */}
       <div className="absolute inset-0">
@@ -81,7 +81,7 @@ export default function HowItWorks() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-10 md:mb-16"
         >
           <span className="inline-flex items-center gap-2 text-accent font-semibold text-sm tracking-wider uppercase mb-4 bg-white/10 px-5 py-2.5 rounded-full border border-white/10">
             <Sparkles className="w-4 h-4" />
@@ -93,7 +93,7 @@ export default function HowItWorks() {
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-14">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10 md:mb-14">
           {steps.map((step, index) => {
             const Icon = step.icon
             return (
