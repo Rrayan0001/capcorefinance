@@ -48,6 +48,7 @@
     "embla-carousel-react": "8.5.1",
     "firebase": "12.7.0",
     "framer-motion": "latest",
+    "groq-sdk": "^0.37.0",
     "gsap": "latest",
     "input-otp": "1.4.1",
     "lenis": "^1.3.17",
