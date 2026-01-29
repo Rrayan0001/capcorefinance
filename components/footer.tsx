@@ -12,30 +12,30 @@ export default function Footer() {
   const [agreed, setAgreed] = useState(false)
 
   const quickLinks = [
-    { label: "FAQ", href: "/resources#faq" },
-    { label: "Pricing Plan", href: "/services" },
+    { label: "Services", href: "/services" },
+    { label: "How It Works", href: "/how-it-works" },
     { label: "Contact", href: "/contact" },
-    { label: "Market Overview", href: "/resources#market" },
-    { label: "Deposit & Withdrawals", href: "/how-it-works#process" },
-    { label: "Account Login", href: "/contact#login" },
+    { label: "Resources", href: "/resources" },
+    { label: "Testimonials", href: "/testimonials" },
+    { label: "About Us", href: "/about" },
   ]
 
   const aboutLinks = [
-    { label: "Our Story", href: "/about#story" },
-    { label: "Our Team", href: "/about#team" },
-    { label: "Portfolio", href: "/services#portfolio" },
-    { label: "Career", href: "/contact#career" },
+    { label: "Our Story", href: "/about" },
+    { label: "Our Team", href: "/about" },
+    { label: "Business Loans", href: "/services/business-loans" },
+    { label: "Project Loans", href: "/services/project-loans" },
     { label: "Client Testimonials", href: "/testimonials" },
-    { label: "Security Promise", href: "/privacy-policy#security" },
+    { label: "Privacy Policy", href: "/privacy-policy" },
   ]
 
   const supportLinks = [
     { label: "About", href: "/about" },
-    { label: "Live Chat", href: "/contact#chat" },
-    { label: "Trading Guide", href: "/how-it-works#guide" },
+    { label: "Contact Us", href: "/contact" },
+    { label: "How It Works", href: "/how-it-works" },
     { label: "Terms & Conditions", href: "/terms" },
     { label: "Privacy Policy", href: "/privacy-policy" },
-    { label: "Risk Disclosure", href: "/terms#risk" },
+    { label: "Resources", href: "/resources" },
   ]
 
   const handleSubmit = (e: React.FormEvent) => {

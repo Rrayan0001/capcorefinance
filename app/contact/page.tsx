@@ -98,7 +98,7 @@ export default function Contact() {
     {
       icon: MapPin,
       title: "Office",
-      details: [{ label: "Yelahanka, Bengaluru", href: "#" }],
+      details: [{ label: "Yelahanka, Bengaluru, Karnataka", href: "https://maps.google.com/?q=Yelahanka,Bengaluru" }],
     },
   ]
 
@@ -410,10 +410,10 @@ export default function Contact() {
                     <h3 className="font-bold text-gray-900 mb-2 text-lg">Office Address</h3>
                     <p className="text-gray-600 leading-relaxed">
                       Yelahanka, Bengaluru<br />
-                      Karnataka, India
+                      Karnataka - 560064
                     </p>
-                    <p className="text-sm text-gray-500 mt-3 italic">
-                      Complete address will be updated soon
+                    <p className="text-sm text-accent font-medium mt-3">
+                      📞 Please call us to schedule an appointment before visiting
                     </p>
                   </div>
                 </div>

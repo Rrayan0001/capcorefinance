@@ -48,16 +48,16 @@ const coveredExpenses = [
 
 export default function EducationLoans() {
   return (
-    <main className="py-16 md:py-24 bg-background">
+    <main className="bg-gradient-to-b from-gray-50 to-white">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Hero */}
         <div className="text-center mb-16">
-          <span className="inline-flex items-center gap-2 text-primary font-semibold text-sm tracking-wider uppercase mb-4 bg-primary/10 px-4 py-2 rounded-full">
+          <span className="inline-flex items-center gap-2 text-accent font-semibold text-sm tracking-wider uppercase mb-4 bg-accent/10 px-4 py-2 rounded-full">
             <GraduationCap size={18} />
             Education Finance
           </span>
-          <h1 className="text-4xl md:text-5xl font-bold mb-6 text-foreground">Education Loans</h1>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+          <h1 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900">Education Loans</h1>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
             Don't let finances hold back your academic dreams. Our education loans cover everything from tuition to
             living expenses for domestic and international studies.
           </p>
@@ -70,7 +70,7 @@ export default function EducationLoans() {
             return (
               <div
                 key={index}
-                className="p-8 bg-card border border-border rounded-2xl hover:border-primary/30 transition-all duration-300 hover:shadow-xl"
+                className="p-8 bg-gray-50 border border-gray-200 rounded-2xl hover:border-accent/50 transition-all duration-300 hover:shadow-xl"
               >
                 <div className="inline-flex p-4 bg-primary/10 rounded-2xl mb-6">
                   <Icon className="text-primary" size={28} />

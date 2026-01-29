@@ -1,6 +1,6 @@
 "use client"
 
-import { Building2, Landmark, Home, GraduationCap, Truck } from "lucide-react"
+import { Building2, Landmark, Home, GraduationCap, Truck, TrendingUp } from "lucide-react"
 import { Carousel3D } from "@/components/ui/carousel-3d"
 
 const services = [
@@ -46,6 +46,30 @@ const services = [
     highlights: ["Industrial", "Equipment", "Inventory"],
     image: "/assets/machinery-loans.png",
   },
+  {
+    icon: Building2,
+    title: "MSME Funding",
+    description: "Government-backed MSME schemes including Mudra, CGTMSE, and specialized micro-enterprise financing",
+    href: "/services/business-loans",
+    highlights: ["Mudra Loans", "CGTMSE", "Collateral-Free", "Quick Approval"],
+    image: "/assets/business-loans.png",
+  },
+  {
+    icon: Landmark,
+    title: "Government Schemes",
+    description: "Access various government schemes like PMEGP, Stand-up India, and state-specific financing programs",
+    href: "/services/business-loans",
+    highlights: ["PMEGP", "Stand-up India", "State Schemes", "Subsidized Rates"],
+    image: "/assets/project-loans.png",
+  },
+  {
+    icon: TrendingUp,
+    title: "AIF & Private Equity",
+    description: "Alternative Investment Fund and Private Equity solutions for large-scale business expansion and growth",
+    href: "/services/project-loans",
+    highlights: ["AIF Category I/II", "Private Equity", "Venture Capital", "Growth Funding"],
+    image: "/assets/project-loans.png",
+  },
 ]
 
 export default function ServiceCards() {
@@ -59,7 +83,7 @@ export default function ServiceCards() {
   }))
 
   return (
-    <section className="min-h-auto md:min-h-screen py-12 md:py-20 relative overflow-hidden rounded-t-[40px] md:rounded-t-[100px] mt-0 z-20 flex flex-col bg-black">
+    <section className="py-8 md:py-12 relative overflow-hidden rounded-t-[40px] md:rounded-t-[100px] mt-0 z-20 flex flex-col bg-black">
       {/* Background Image Layer */}
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"

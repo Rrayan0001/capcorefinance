@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useId, useEffect } from "react";
+import Link from "next/link";
 
 // Simple Arrow Icon Component
 const ArrowIcon = ({ className }: { className?: string }) => (
@@ -88,7 +89,7 @@ const Slide = ({ slide, index, current, handleSlideClick, showDetails = false }:
     event.currentTarget.style.opacity = "1";
   };
 
-  const { src, button, title, description, loanAmount, interestRate, tenure, features } = slide;
+  const { src, button, title, description, href, loanAmount, interestRate, tenure } = slide;
 
   return (
     <div className="[perspective:1200px] [transform-style:preserve-3d]">
@@ -133,9 +134,8 @@ const Slide = ({ slide, index, current, handleSlideClick, showDetails = false }:
         </div>
 
         <article
-          className={`relative p-[4vmin] transition-opacity duration-1000 ease-in-out ${
-            current === index ? "opacity-100 visible" : "opacity-0 invisible"
-          }`}
+          className={`relative p-[4vmin] transition-opacity duration-1000 ease-in-out ${current === index ? "opacity-100 visible" : "opacity-0 invisible"
+            }`}
         >
           <h2 className="text-lg md:text-2xl lg:text-4xl font-semibold relative mb-2">
             {title}
@@ -145,7 +145,7 @@ const Slide = ({ slide, index, current, handleSlideClick, showDetails = false }:
               {description}
             </p>
           )}
-          
+
           {showDetails && loanAmount && interestRate && tenure ? (
             <div className="mt-4 space-y-3">
               <div className="flex justify-between items-center text-xs md:text-sm bg-white/95 backdrop-blur-md px-4 py-3 rounded-lg shadow-lg">
@@ -163,9 +163,13 @@ const Slide = ({ slide, index, current, handleSlideClick, showDetails = false }:
             </div>
           ) : (
             <div className="flex justify-center">
-              <button className="mt-6 px-4 py-2 w-fit mx-auto sm:text-sm text-black bg-white h-12 border border-transparent text-xs flex justify-center items-center rounded-2xl hover:shadow-lg transition duration-200 shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
+              <Link
+                href={href || "/services"}
+                className="mt-6 px-4 py-2 w-fit mx-auto sm:text-sm text-black bg-white h-12 border border-transparent text-xs flex justify-center items-center rounded-2xl hover:shadow-lg transition duration-200 shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]"
+                onClick={(e) => e.stopPropagation()}
+              >
                 {button}
-              </button>
+              </Link>
             </div>
           )}
         </article>
@@ -187,9 +191,8 @@ const CarouselControl = ({
 }: CarouselControlProps) => {
   return (
     <button
-      className={`w-10 h-10 md:w-12 md:h-12 flex items-center mx-2 justify-center bg-white/10 backdrop-blur-sm border-2 border-white/20 rounded-full focus:border-accent focus:outline-none hover:-translate-y-0.5 active:translate-y-0.5 transition duration-200 ${
-        type === "previous" ? "rotate-180" : ""
-      }`}
+      className={`w-10 h-10 md:w-12 md:h-12 flex items-center mx-2 justify-center bg-white/10 backdrop-blur-sm border-2 border-white/20 rounded-full focus:border-accent focus:outline-none hover:-translate-y-0.5 active:translate-y-0.5 transition duration-200 ${type === "previous" ? "rotate-180" : ""
+        }`}
       title={title}
       onClick={handleClick}
     >

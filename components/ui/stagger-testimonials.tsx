@@ -9,94 +9,76 @@ const SQRT_5000 = Math.sqrt(5000);
 const testimonials = [
     {
         tempId: 0,
-        testimonial: "Capital Core Finance made my home loan process incredibly smooth 🏡 The team guided me through every step and I got approval within 10 days ⚡ Highly recommended!",
-        by: "Rajesh Kumar, Bangalore",
+        testimonial: "Capital Core Finance helped my manufacturing unit secure ₹2 Cr working capital loan in just 15 days 🏭 Their understanding of MSME needs is exceptional. Highly recommended for Bangalore businesses!",
+        by: "Ramesh Naidu, Manufacturing Unit Owner, Peenya Industrial Area",
         emoji: "👨‍💼"
     },
     {
         tempId: 1,
-        testimonial: "I was worried about getting a business loan for my startup 💼 but Capital Core Finance believed in my vision. Their interest rates are competitive and the process was transparent ✨",
-        by: "Priya Sharma, Mumbai",
+        testimonial: "As a startup founder, getting a business loan seemed impossible 💼 Capital Core understood my vision and helped me secure funding when banks rejected me. Now my tech company is thriving! 🚀",
+        by: "Priya Venkatesh, Tech Startup Founder, Koramangala",
         emoji: "👩‍💼"
     },
     {
         tempId: 2,
-        testimonial: "Best decision to choose Capital Core for my personal loan 💰 No hidden charges, quick disbursal, and excellent customer support. Thank you team! 🙏",
-        by: "Amit Patel, Ahmedabad",
+        testimonial: "Expanded my retail chain from 2 to 5 stores with Capital Core's business financing 🛒 Their team guided me through the entire CGTMSE scheme. Professional and efficient service! ⭐",
+        by: "Suresh Gowda, Retail Business Owner, Jayanagar",
         emoji: "🧑‍💻"
     },
     {
         tempId: 3,
-        testimonial: "The home loan EMI calculator on their website helped me plan my finances perfectly 📊 Got my dream home loan at the best rates. Very satisfied customer! 😊",
-        by: "Sneha Reddy, Hyderabad",
-        emoji: "👩"
-    },
-    {
-        tempId: 4,
-        testimonial: "Capital Core Finance helped me consolidate my debts with a single loan at lower interest 📉 My financial stress has reduced significantly. Grateful for their support! 🙌",
-        by: "Vikram Singh, Delhi",
+        testimonial: "Got my machinery loan approved for my printing press within 10 days 🖨️ Capital Core's expertise in equipment financing is unmatched. They made the complex process simple! 💯",
+        by: "Anand Kumar, Printing Press Owner, Rajajinagar",
         emoji: "👨"
     },
     {
+        tempId: 4,
+        testimonial: "Capital Core helped me restructure my existing loans and get additional working capital 📊 My garment export business is now debt-free and growing. Forever grateful! 🙏",
+        by: "Meera Krishnamurthy, Garment Exporter, Bommanahalli",
+        emoji: "👩"
+    },
+    {
         tempId: 5,
-        testimonial: "I needed urgent funds for my daughter's education 🎓 Capital Core processed my education loan in just 5 days. Professional and caring team! ❤️",
-        by: "Meena Iyer, Chennai",
-        emoji: "👩‍🏫"
+        testimonial: "Secured project financing for my commercial complex construction 🏗️ Capital Core's relationship with banks got me the best interest rates. Excellent support throughout! ✨",
+        by: "Vijay Reddy, Real Estate Developer, Whitefield",
+        emoji: "👨‍🦱"
     },
     {
         tempId: 6,
-        testimonial: "As a first-time home buyer, I was nervous about the loan process 😰 Capital Core's team explained everything clearly and made it hassle-free. Excellent service! ⭐",
-        by: "Arjun Nair, Kochi",
-        emoji: "🧑"
+        testimonial: "My restaurant chain expansion was possible only because of Capital Core 🍽️ They understood the F&B industry challenges and got me sanctioned in record time. Great team! 🌟",
+        by: "Lakshmi Prasad, Restaurant Chain Owner, Indiranagar",
+        emoji: "👩‍🍳"
     },
     {
         tempId: 7,
-        testimonial: "Got my vehicle loan approved in record time! 🚗 The documentation was minimal and the interest rate was better than other banks. Very happy with Capital Core! 🎉",
-        by: "Kavita Desai, Pune",
-        emoji: "👩‍🔧"
+        testimonial: "Capital Core arranged MSME loan under Mudra scheme for my auto components unit 🔧 Zero collateral and excellent terms. They truly support small business owners! 💪",
+        by: "Ravi Shankar, Auto Components Manufacturer, Bommasandra",
+        emoji: "🧑‍🔧"
     },
     {
         tempId: 8,
-        testimonial: "Capital Core Finance understood my business needs and offered a customized loan solution 📈 Their flexibility and support helped me expand my business successfully 🚀",
-        by: "Suresh Gupta, Jaipur",
+        testimonial: "From loan application to disbursal, Capital Core handled everything 📈 Got ₹50 lakhs for my IT services company expansion. Professional, transparent, and reliable! 🏆",
+        by: "Deepak Rao, IT Services Company, Electronic City",
         emoji: "👨‍💼"
     },
     {
         tempId: 9,
-        testimonial: "The entire loan process was digital and paperless 📱 I could track my application status online. Modern banking at its best! Thank you Capital Core! 💯",
-        by: "Anjali Mehta, Surat",
+        testimonial: "Capital Core's expertise in government schemes helped me avail Stand-up India benefits 🇮🇳 My logistics company got the funding it needed. Highly professional team! 🚚",
+        by: "Fatima Begum, Logistics Business Owner, Yeshwanthpur",
         emoji: "👩‍💻"
     },
     {
         tempId: 10,
-        testimonial: "I refinanced my existing home loan with Capital Core and saved lakhs in interest 💸 Their team did all the hard work. Highly professional service! 👏",
-        by: "Karthik Krishnan, Coimbatore",
+        testimonial: "Secured term loan for my pharma distribution business in just 2 weeks 💊 Capital Core's documentation support made the process seamless. Best financial consultants! 👏",
+        by: "Karthik Hebbar, Pharma Distributor, BTM Layout",
         emoji: "🧑‍💼"
     },
     {
         tempId: 11,
-        testimonial: "Capital Core gave me a personal loan when other banks rejected my application 🙏 They looked beyond my credit score and understood my situation. Forever grateful! 💚",
-        by: "Deepak Rao, Mangalore",
-        emoji: "👨‍🦱"
+        testimonial: "Capital Core helped my educational institute get project financing for new campus 🎓 Their understanding of institutional financing is exceptional. Trusted partners! 🙌",
+        by: "Dr. Shivakumar, Educational Institute Director, Marathahalli",
+        emoji: "👨‍🏫"
     },
-    {
-        tempId: 12,
-        testimonial: "The best part about Capital Core is their post-loan support 📞 Any query I have, they respond immediately. True customer-first approach! 🌟",
-        by: "Pooja Agarwal, Indore",
-        emoji: "👩‍🦰"
-    },
-    {
-        tempId: 13,
-        testimonial: "I got my loan sanctioned even with a moderate credit score 📊 Capital Core's team worked with me to improve my eligibility. They really care about their customers! 💙",
-        by: "Ramesh Pillai, Trivandrum",
-        emoji: "👴"
-    },
-    {
-        tempId: 14,
-        testimonial: "From application to disbursal, everything was smooth and transparent ✅ No last-minute surprises. Capital Core Finance has earned my trust and recommendation! 🏆",
-        by: "Nisha Kapoor, Chandigarh",
-        emoji: "👩‍🎓"
-    }
 ];
 
 interface TestimonialCardProps {

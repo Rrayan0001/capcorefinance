@@ -17,15 +17,17 @@ const founders = [
     name: "Chandrashekhar Raju",
     role: "CEO, Capital Core Finance",
     experience: "20+ years",
-    image: "/placeholder.svg?height=400&width=400",
+    image: "/images/ceo-placeholder.jpg",
+    initials: "CR",
     description:
-      "A veteran in the finance industry with over three decades of experience, Mr. Chandrashekhar Raju brings unparalleled expertise in banking, lending, and financial management. His leadership and vision have been instrumental in shaping Capital Core Finance into a trusted name.",
+      "A veteran in the finance industry with over two decades of experience, Mr. Chandrashekhar Raju brings unparalleled expertise in banking, lending, and financial management. His leadership and vision have been instrumental in shaping Capital Core Finance into a trusted name.",
   },
   {
     name: "Harshavardhan N",
     role: "Business & Project Finance Expert",
     experience: "3+ years",
     image: "/images/harsha.jpeg",
+    initials: "HN",
     description:
       "With expertise in business lending, project financing, and financial strategy, Harshavardhan has guided numerous clients to secure life-changing loans. His deep understanding of bank relationships and loan structuring has earned trust across the industry.",
   },
@@ -34,6 +36,7 @@ const founders = [
     role: "Financial Advisory & Loan Solutions Specialist",
     experience: "3+ years",
     image: "/images/ashu-20h.jpg",
+    initials: "HA",
     description:
       "Specializing in comprehensive financial advisory, housing finance, and banking relations. Hase has helped clients from diverse backgrounds achieve their financial aspirations through personalized loan solutions.",
   },
@@ -114,7 +117,7 @@ export default function About() {
       <section className="py-20 md:py-28 bg-gradient-to-b from-white to-gray-50 relative">
         {/* Decorative separator */}
         <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent"></div>
-        
+
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="animate-section">
             {/* Section Header */}
@@ -128,7 +131,7 @@ export default function About() {
               </div>
               <h2 className="text-3xl md:text-4xl font-bold mb-6 text-gray-900">Our Story</h2>
             </div>
-            
+
             {/* Content with better styling */}
             <div className="bg-white p-8 md:p-12 rounded-3xl shadow-lg border border-gray-100">
               <div className="prose prose-lg text-gray-600 space-y-6 max-w-none">
@@ -141,7 +144,7 @@ export default function About() {
                   Today, we've helped 2500+ clients secure funding across business loans, housing, education, machinery,
                   and project financing. Every client is treated as a partner, and their success is our success.
                 </p>
-                
+
                 {/* Key highlights */}
                 <div className="grid md:grid-cols-2 gap-6 mt-8 pt-6 border-t border-gray-100">
                   <div className="flex items-start gap-3">
@@ -222,8 +225,14 @@ export default function About() {
                 transition={{ delay: index * 0.15 }}
                 className="group bg-white p-8 rounded-2xl border border-gray-200 hover:border-accent/50 transition-all duration-300 hover:shadow-xl"
               >
-                <div className="relative w-24 h-24 mt-2 rounded-full overflow-hidden mb-6 border-4 border-accent/20">
-                  <Image src={founder.image || "/placeholder.svg"} alt={founder.name} fill className="object-cover object-[center_20%]" />
+                <div className="relative w-24 h-24 mt-2 rounded-full overflow-hidden mb-6 border-4 border-accent/20 bg-gradient-to-br from-accent/20 to-accent/40">
+                  {founder.image && !founder.image.includes('placeholder') ? (
+                    <Image src={founder.image} alt={founder.name} fill className="object-cover object-[center_20%]" />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#1a1a2e] to-[#2a2a4e]">
+                      <span className="text-2xl font-bold text-white">{founder.initials}</span>
+                    </div>
+                  )}
                 </div>
                 <h3 className="font-bold text-xl mb-1 group-hover:text-accent transition-colors text-gray-900">{founder.name}</h3>
                 <p className="text-accent font-medium text-sm mb-2">{founder.role}</p>

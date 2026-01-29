@@ -37,7 +37,7 @@ const machineryTypes = [
 
 export default function MachineryLoans() {
   return (
-    <main className="py-16 md:py-24 bg-background">
+    <main className="bg-gradient-to-b from-gray-50 to-white">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Hero */}
         <div className="text-center mb-16">
@@ -45,8 +45,8 @@ export default function MachineryLoans() {
             <Truck size={18} />
             Equipment Finance
           </span>
-          <h1 className="text-4xl md:text-5xl font-bold mb-6 text-foreground">Machinery & Equipment Loans</h1>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+          <h1 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900">Machinery & Equipment Loans</h1>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
             Upgrade your business assets with specialized machinery and equipment financing. From industrial machinery
             to commercial vehicles, we have you covered.
           </p>
@@ -59,13 +59,13 @@ export default function MachineryLoans() {
             return (
               <div
                 key={index}
-                className="p-8 bg-card border border-border rounded-2xl hover:border-primary/30 transition-all duration-300 hover:shadow-xl"
+                className="p-8 bg-gray-50 border border-gray-200 rounded-2xl hover:border-accent/50 transition-all duration-300 hover:shadow-xl"
               >
                 <div className="inline-flex p-4 bg-primary/10 rounded-2xl mb-6">
                   <Icon className="text-primary" size={28} />
                 </div>
-                <h3 className="text-xl font-bold mb-3 text-foreground">{type.title}</h3>
-                <p className="text-muted-foreground mb-4">{type.description}</p>
+                <h3 className="text-xl font-bold mb-3 text-gray-900">{type.title}</h3>
+                <p className="text-gray-600 mb-4">{type.description}</p>
                 <ul className="space-y-2">
                   {type.features.map((feature, idx) => (
                     <li key={idx} className="flex items-center gap-2 text-sm text-muted-foreground">
