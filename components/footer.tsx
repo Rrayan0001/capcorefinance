@@ -123,25 +123,6 @@ export default function Footer() {
             <p className="text-white/60 text-sm leading-relaxed max-w-md">
               Your trusted partner for comprehensive financial solutions. We specialize in business loans, project financing, and strategic financial consulting.
             </p>
-            <div className="mt-6">
-              <h4 className="text-white font-semibold mb-3">Stay Tuned</h4>
-              <div className="flex gap-3">
-                {[
-                  { icon: Globe, href: "#" },
-                  { icon: Instagram, href: "#" },
-                  { icon: Facebook, href: "#" },
-                  { icon: Twitter, href: "#" },
-                ].map((social, index) => (
-                  <a
-                    key={index}
-                    href={social.href}
-                    className="w-10 h-10 bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg flex items-center justify-center text-white hover:bg-accent hover:border-accent hover:text-black transition-all duration-300"
-                  >
-                    <social.icon size={18} />
-                  </a>
-                ))}
-              </div>
-            </div>
           </div>
         </div>
 

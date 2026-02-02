@@ -93,7 +93,7 @@ export default function Contact() {
     {
       icon: Mail,
       title: "Email",
-      details: [{ label: "info@capitalcore.com", href: "mailto:info@capitalcore.com" }],
+      details: [{ label: "business@capitalcorefinance.com", href: "mailto:business@capitalcorefinance.com" }],
     },
     {
       icon: MapPin,
