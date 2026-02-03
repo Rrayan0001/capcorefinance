@@ -44,7 +44,7 @@ const founders = [
 
 const milestones = [
   { icon: Users, value: "2500+", label: "Clients Helped" },
-  { icon: TrendingUp, value: "₹1000Cr+", label: "Financing Facilitated" },
+  { icon: TrendingUp, value: "₹4600Cr+", label: "Financing Facilitated" },
   { icon: Award, value: "18+", label: "Years Combined Experience" },
   { icon: MapPin, value: "Pan India", label: "Service Coverage" },
 ]

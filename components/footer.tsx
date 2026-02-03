@@ -162,20 +162,33 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Support Pages */}
+          {/* Contact Us */}
           <div>
-            <h4 className="font-semibold text-white mb-6">Support Pages</h4>
-            <ul className="space-y-3">
-              {supportLinks.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="text-white/60 hover:text-white transition-colors text-sm"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
+            <h4 className="font-semibold text-white mb-6">Contact Us</h4>
+            <ul className="space-y-4">
+              <li className="flex items-start gap-3">
+                <Mail className="w-5 h-5 text-accent shrink-0 mt-0.5" />
+                <a href="mailto:business@capitalcorefinance.com" className="text-white/60 hover:text-white transition-colors text-sm break-all">
+                  business@capitalcorefinance.com
+                </a>
+              </li>
+              <li className="flex items-start gap-3">
+                <Phone className="w-5 h-5 text-accent shrink-0 mt-0.5" />
+                <div className="flex flex-col gap-1">
+                  <a href="tel:+919975985314" className="text-white/60 hover:text-white transition-colors text-sm">
+                    +91 99759 85314
+                  </a>
+                  <a href="tel:+919902545483" className="text-white/60 hover:text-white transition-colors text-sm">
+                    +91 99025 45483
+                  </a>
+                </div>
+              </li>
+              <li className="flex items-start gap-3">
+                <MapPin className="w-5 h-5 text-accent shrink-0 mt-0.5" />
+                <span className="text-white/60 text-sm">
+                  Yelahanka, Bengaluru,<br />Karnataka
+                </span>
+              </li>
             </ul>
           </div>
         </div>
